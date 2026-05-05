@@ -1,0 +1,15 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!221 &22100000
+AnimatorOverrideController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: BlueVerticalGate
+  m_Controller: {fileID: 9100000, guid: a5ecdba6d621eb441bb428f9aef77535, type: 2}
+  m_Clips:
+  - m_OriginalClip: {fileID: 7400000, guid: c651970019597964382e8ef6f9d1103b, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 51910658df0601847bf2c72d8074a162, type: 2}
+  - m_OriginalClip: {fileID: 7400000, guid: b581128306ff69e44a53b521c624e5e9, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 888973e03f90ed940b4b92c858de795c, type: 2}
