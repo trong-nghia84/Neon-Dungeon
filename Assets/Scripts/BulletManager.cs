@@ -51,6 +51,11 @@ public class BulletManager : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        if (collision.gameObject.name == "Traps")
+        {
+            return; // Thoát hàm sớm, cho đạn bay tiếp
+        }
+
         if (collision.CompareTag("Wall") || collision.GetComponent<UnityEngine.Tilemaps.TilemapCollider2D>() != null)
         {
             HandleImpact();
@@ -59,18 +64,41 @@ public class BulletManager : MonoBehaviour
 
         if (owner == OwnerType.Enemy && collision.CompareTag("Player"))
         {
-            PlayerSwitchManager manager = GameObject.FindObjectOfType<PlayerSwitchManager>();
-            if (manager != null)
+            PlayerBase player = collision.GetComponent<PlayerBase>();
+            if (player == null) player = collision.GetComponentInParent<PlayerBase>();
+
+            if (player != null)
             {
-                manager.TakeSharedDamage(damage);
+              
+                player.TakeDamage(damage);
             }
+
             HandleImpact();
         }
 
         if (owner == OwnerType.Player && collision.CompareTag("Enemy"))
         {
             EnemyBase enemy = collision.GetComponent<EnemyBase>();
-            if (enemy != null) enemy.TakeDamage(damage);
+
+           
+            float finalDamage = damage;
+
+            if (PlayerSwitchManager.CurrentPlayerTransform != null)
+            {
+                PlayerBase activePlayer = PlayerSwitchManager.CurrentPlayerTransform.GetComponent<PlayerBase>();
+                if (activePlayer != null)
+                {
+                   
+                    finalDamage = damage * activePlayer.GetDamageMultiplier();
+                }
+            }
+
+            if (enemy != null)
+            {
+                enemy.TakeDamage(finalDamage);
+                Debug.Log($"Đạn Player bắn trúng Enemy gây: {finalDamage} sát thương.");
+            }
+
             HandleImpact();
         }
     }

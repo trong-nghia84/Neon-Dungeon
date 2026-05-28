@@ -28,7 +28,6 @@ public class PlayerDash : MonoBehaviour
         // Đổi phím từ LeftShift sang E
         if (Input.GetKeyDown(KeyCode.E) && canDash)
         {
-            Debug.Log("Da nhan phim E");
             StartCoroutine(PerformDash());
         }
     }
@@ -38,18 +37,15 @@ public class PlayerDash : MonoBehaviour
         canDash = false;
         IsDashing = true;
 
-        // Bất tử: Tắt Hitbox thông qua PlayerBase
         if (playerBase != null && playerBase.hitboxCollider != null)
             playerBase.hitboxCollider.enabled = false;
 
         if (anim != null) anim.SetTrigger("IsDash");
 
-        // TÍNH TOÁN HƯỚNG LƯỚT THEO HƯỚNG DI CHUYỂN
         float moveX = Input.GetAxisRaw("Horizontal");
         float moveY = Input.GetAxisRaw("Vertical");
         Vector2 dashDir = new Vector2(moveX, moveY).normalized;
 
-        // Nếu người chơi đứng yên (không nhấn phím di chuyển), lướt theo hướng mặt nhân vật
         if (dashDir == Vector2.zero)
         {
             dashDir = new Vector2(transform.localScale.x > 0 ? 1 : -1, 0);

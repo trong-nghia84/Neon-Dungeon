@@ -12,20 +12,40 @@ public class SwordDamage : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        // Kiểm tra theo biến targetTag thay vì viết cứng chữ "Enemy"
         if (collision.CompareTag(targetTag))
         {
-            // Nếu mục tiêu là Enemy
+            
+            float finalDamage = damageValue;
+
+            if (PlayerSwitchManager.CurrentPlayerTransform != null)
+            {
+                PlayerBase activePlayer = PlayerSwitchManager.CurrentPlayerTransform.GetComponent<PlayerBase>();
+                if (activePlayer != null)
+                {
+                    finalDamage = damageValue * activePlayer.GetDamageMultiplier();
+                }
+            }
+
             if (targetTag == "Enemy")
             {
                 EnemyBase enemy = collision.GetComponent<EnemyBase>();
-                if (enemy != null) enemy.TakeDamage(damageValue);
+                if (enemy == null) enemy = collision.GetComponentInParent<EnemyBase>();
+
+                if (enemy != null)
+                {
+                    enemy.TakeDamage(finalDamage); 
+                    Debug.Log($"Kiếm chém trúng Enemy gây: {finalDamage} sát thương.");
+                }
             }
-            // Nếu mục tiêu là Player
             else if (targetTag == "Player")
             {
-                PlayerBase player = collision.GetComponent<PlayerBase>();
-                if (player != null) player.TakeDamage(damageValue);
+                PlayerBase player = collision.GetComponentInParent<PlayerBase>();
+                if (player == null) player = collision.GetComponent<PlayerBase>();
+
+                if (player != null)
+                {
+                    player.TakeDamage(damageValue); 
+                }
             }
         }
     }

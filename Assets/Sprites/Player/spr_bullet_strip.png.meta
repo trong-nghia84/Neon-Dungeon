@@ -100,12 +100,12 @@ TextureImporter:
       name: spr_bullet_strip_0
       rect:
         serializedVersion: 2
-        x: 4
+        x: 82
         y: 5
-        width: 31
+        width: 30
         height: 29
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -113,6 +113,48 @@ TextureImporter:
       bones: []
       spriteID: b252057675304c64aa5d84cf21e03416
       internalID: -1630228328
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spr_bullet_strip_1
+      rect:
+        serializedVersion: 2
+        x: 4
+        y: 5
+        width: 31
+        height: 29
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c25cb8e5c14d99545b4d1a95fe77d96a
+      internalID: 1907148158
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spr_bullet_strip_2
+      rect:
+        serializedVersion: 2
+        x: 43
+        y: 5
+        width: 30
+        height: 29
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ea471fa4e7d7c13488b590b748fe10c7
+      internalID: -1633595260
       vertices: []
       indices: 
       edges: []
@@ -129,6 +171,8 @@ TextureImporter:
     secondaryTextures: []
     nameFileIdTable:
       spr_bullet_strip_0: -1630228328
+      spr_bullet_strip_1: 1907148158
+      spr_bullet_strip_2: -1633595260
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

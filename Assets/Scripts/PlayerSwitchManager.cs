@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.UI; // CẦN THÊM DÒNG NÀY ĐỂ DÙNG SLIDER
 public class PlayerSwitchManager : MonoBehaviour
 {
     public PlayerBase[] characters;
@@ -14,17 +14,30 @@ public class PlayerSwitchManager : MonoBehaviour
     public float maxHealth = 100f;
     public bool isAllDead = false;
 
+    [Header("UI References")]
+    public Slider healthSlider; 
+
     public CinemachineVirtualCamera vcam;
 
     public static Transform CurrentPlayerTransform;
+    public static PlayerSwitchManager Instance; 
+
+    private void Awake()
+    {
+        Instance = this;
+    }
     void Start()
     {
+        if (healthSlider != null)
+        {
+            healthSlider.maxValue = maxHealth;
+            healthSlider.value = sharedHealth;
+        }
         ActivateCharacter(0);
     }
 
     void Update()
     {
-        // NẾU ĐÃ CHẾT THÌ KHÔNG LÀM GÌ CẢ
         if (isAllDead) return;
 
         // 1. Xử lý di chuyển 8 hướng
@@ -48,6 +61,24 @@ public class PlayerSwitchManager : MonoBehaviour
         {
             SwitchCharacter();
         }
+
+        //4. Xử lý dùng kỹ năng R đặc biệt (Chỉ cho phép dùng khi còn sống)
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            if (currentActiveCharacter != null)
+            {
+                currentActiveCharacter.UseSkill1();
+            }
+        }
+
+        //5. Xử lý dùng kỹ năng T đặc biệt (Chỉ cho phép dùng khi còn sống)
+        if (Input.GetKeyDown(KeyCode.T))
+        {
+            if (currentActiveCharacter != null)
+            {
+                currentActiveCharacter.UseSkill2();
+            }
+        }
     }
 
     // Hàm dùng chung để trừ máu từ bất kỳ nhân vật nào
@@ -56,7 +87,7 @@ public class PlayerSwitchManager : MonoBehaviour
         if (isAllDead) return;
 
         sharedHealth -= damage;
-        Debug.Log("Máu chung còn lại: " + sharedHealth);
+        UpdateHealthUI();
 
         if (sharedHealth <= 0)
         {
@@ -64,6 +95,7 @@ public class PlayerSwitchManager : MonoBehaviour
             isAllDead = true;
             // Ép nhân vật hiện tại thực hiện animation chết
             if (currentActiveCharacter != null) currentActiveCharacter.Die();
+            GameManager.Instance.TriggerGameOver();
         }
     }
 
@@ -109,8 +141,23 @@ public class PlayerSwitchManager : MonoBehaviour
         {
             sharedHealth = maxHealth;
         }
+        UpdateHealthUI();
+    }
 
-        Debug.Log("Máu hiện tại sau khi hồi: " + sharedHealth);
+    private void UpdateHealthUI()
+    {
+        if (healthSlider != null)
+        {
+            healthSlider.value = sharedHealth;
+            if (sharedHealth <= 0)
+            {
+                healthSlider.fillRect.gameObject.SetActive(false);
+            }
+            else
+            {
+                healthSlider.fillRect.gameObject.SetActive(true);
+            }
+        }
     }
 
 }

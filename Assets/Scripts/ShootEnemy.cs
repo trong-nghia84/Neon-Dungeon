@@ -80,7 +80,6 @@ public class ShootEnemy : EnemyBase
                 bManager.Launch(direction);
             }
 
-            Debug.Log("Enemy đã bắn tới vị trí của Player!");
         }
     }
 }
