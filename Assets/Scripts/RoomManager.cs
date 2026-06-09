@@ -2,15 +2,13 @@
 
 public class RoomManager : MonoBehaviour
 {
-    public GateController[] gates; // Kéo các cổng vào đây
+    public GateController[] gates; 
     private bool roomCleared = false;
 
     void Update()
     {
         if (roomCleared) return;
 
-        // Kiểm tra xem còn đối tượng con (Enemy) nào không
-        // Cách đơn giản nhất là đếm số lượng Transform con
         if (transform.childCount == 0)
         {
             roomCleared = true;
@@ -26,7 +24,6 @@ public class RoomManager : MonoBehaviour
             {
                 gate.OpenGate();
             }
-            // Bạn có thể thêm âm thanh báo hiệu Clear Room ở đây
         }
     }
 }

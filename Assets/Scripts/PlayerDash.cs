@@ -10,7 +10,7 @@ public class PlayerDash : MonoBehaviour
 
     private Rigidbody2D rb;
     private Animator anim;
-    private PlayerBase playerBase; // Tham chiếu để lấy hitboxCollider
+    private PlayerBase playerBase; 
     private bool canDash = true;
     public bool IsDashing { get; private set; }
 
@@ -25,7 +25,6 @@ public class PlayerDash : MonoBehaviour
     {
         if (IsDashing) return;
 
-        // Đổi phím từ LeftShift sang E
         if (Input.GetKeyDown(KeyCode.E) && canDash)
         {
             StartCoroutine(PerformDash());

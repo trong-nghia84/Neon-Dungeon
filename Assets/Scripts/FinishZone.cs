@@ -19,7 +19,7 @@ public class FinishZone : MonoBehaviour
             if (nextLevel > currentReached)
             {
                 PlayerPrefs.SetInt("ReachedLevel", nextLevel);
-                PlayerPrefs.Save(); // Cưỡng chế ghi dữ liệu xuống ổ cứng vĩnh viễn
+                PlayerPrefs.Save(); 
                 Debug.Log($"[TIẾN TRÌNH] Đã lưu kỷ lục mới thành công! Mở khóa: Level {nextLevel}");
             }
 

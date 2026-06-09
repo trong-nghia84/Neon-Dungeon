@@ -13,8 +13,7 @@ public abstract class EnemyBase : MonoBehaviour
     public float stopDistance = 1.2f;
 
     [Header("UI References")]
-    public EnemyHealthBar healthBar; // Kéo script EnemyHealthBar vào đây trong Inspector
-
+    public EnemyHealthBar healthBar; 
     protected Rigidbody2D rb;
     protected Animator anim;
     protected Transform player;
@@ -37,10 +36,8 @@ public abstract class EnemyBase : MonoBehaviour
 
     protected virtual void Start()
     {
-        // 1. Khởi tạo máu hiện tại
         currentHealth = maxHealth;
 
-        // 2. Thiết lập giá trị cho thanh máu UI
         if (healthBar != null)
         {
             healthBar.SetMaxHealth(maxHealth);
@@ -51,29 +48,24 @@ public abstract class EnemyBase : MonoBehaviour
     {
         player = PlayerSwitchManager.CurrentPlayerTransform;
 
-        // 2. KIỂM TRA TÀNG HÌNH: Nếu tìm thấy Player nhưng Player đang bật kỹ năng tàng hình
         if (player != null)
         {
             PlayerBase playerScript = player.GetComponent<PlayerBase>();
 
-            // Nếu không tìm thấy script ở đối tượng chính, tìm thử ở đối tượng cha (đề phòng cấu trúc Canvas/Collider con)
             if (playerScript == null) playerScript = player.GetComponentInParent<PlayerBase>();
 
             if (playerScript != null && playerScript.isInvincible)
             {
-                // Ép player về null để quái "mất dấu" người chơi hoàn toàn
                 player = null;
             }
         }
 
-        // 3. Nếu quái chết, hoặc không có Player, hoặc Player đang tàng hình thì dừng lại
         if (isDead || player == null)
         {
             StopMovement();
             return;
         }
 
-        // 4. Nếu toàn đội Player đã chết (Game Over) thì quái cũng dừng lại
         if (switchManager != null && switchManager.isAllDead)
         {
             StopMovement();
@@ -93,7 +85,6 @@ public abstract class EnemyBase : MonoBehaviour
 
         currentHealth -= damage;
 
-        // 3. Cập nhật thanh máu UI mỗi khi trúng đòn
         if (healthBar != null)
         {
             healthBar.SetHealth(currentHealth);
@@ -109,7 +100,6 @@ public abstract class EnemyBase : MonoBehaviour
         isDead = true;
         StopMovement();
 
-        // 4. Ẩn thanh máu ngay khi chết để không bị treo lơ lửng
         if (healthBar != null)
         {
             healthBar.gameObject.SetActive(false);
@@ -133,8 +123,6 @@ public abstract class EnemyBase : MonoBehaviour
             localScale.x *= -1;
             transform.localScale = localScale;
 
-            // Mẹo: Nếu bạn không dùng Quaternion.identity trong script HealthBar, 
-            // bạn có thể lật ngược lại localScale của HealthBar ở đây để nó luôn xuôi chiều.
         }
     }
 }

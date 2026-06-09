@@ -10,7 +10,7 @@ public class BossController : EnemyBase
     private int currentPhase = 1;
 
     [Header("Boss General Skills Settings")]
-    public float skillCooldown = 4f; // Giãn cách giữa các lần ra chiêu nói chung
+    public float skillCooldown = 4f; 
     private float skillTimer = 0f;
 
     [Header("Skill 1: Vạn Tiễn Xuyên Tâm")]
@@ -25,20 +25,19 @@ public class BossController : EnemyBase
     [Header("Skill 3: Triệu Hồi Thuộc Hạ (Cooldown 20s)")]
     public GameObject minionPrefab;
     public Transform[] spawnPoints;
-    public float minionSkillCooldown = 20f; // Thời gian hồi chiêu riêng của Skill gọi đệ
-    private float minionCooldownTimer = 0f;  // Bộ đếm thời gian hồi chiêu gọi đệ
+    public float minionSkillCooldown = 20f; 
+    private float minionCooldownTimer = 0f;  
 
     [Header("Cấu hình Phát hiện Player")]
-    public float aggroRange = 8f;    // Khoảng cách Player đi vào thì Boss mới đánh và hiện thanh máu
-    public float deaggroRange = 14f;  // Khoảng cách Player chạy quá xa thì Boss ngừng đuổi và ẩn thanh máu
-    public bool isAggroed = false;    // Cờ trạng thái kiểm tra Boss đang chiến đấu hay đứng yên
+    public float aggroRange = 8f;    
+    public float deaggroRange = 14f;  
+    public bool isAggroed = false;    
 
     private SpriteRenderer bossSprite;
-    private bool isFacingRightBoss = false; // Mặc định lúc làm Prefab boss đang nhìn sang phải
-    private BossHealthBarUI bossUI;         // Lưu tham chiếu cache đến hệ thống UI thanh máu
+    private bool isFacingRightBoss = false; 
+    private BossHealthBarUI bossUI;         
 
     [Header("Cấu hình Video End Game tại chỗ")]
-    // Kéo đối tượng EndGameVideoPanel trong Hierarchy vào ô này
     public GameObject endGameVideoPanel;
     public float videoDuration = 10f;
     protected override void Awake()
@@ -47,19 +46,15 @@ public class BossController : EnemyBase
         currentBossHealth = maxBossHealth;
         bossSprite = GetComponent<SpriteRenderer>();
 
-        // Mới vào game cho phép triệu hồi được ngay
         minionCooldownTimer = 0f;
 
-        // Lưu sẵn bộ tìm kiếm UI (Sử dụng true để quét được cả Panel khi nó đang ẩn)
         bossUI = GameObject.FindObjectOfType<BossHealthBarUI>(true);
     }
 
     protected override void Update()
     {
-        // Gọi hàm cha để xử lý cập nhật PlayerSwitchManager và logic tàng hình
         base.Update();
 
-        // 1. NGẮT LẬP TỨC: Nếu Boss chết, hoặc toàn đội Player thua cuộc
         if (isDead || (switchManager != null && switchManager.isAllDead))
         {
             StopMovement();
@@ -67,7 +62,6 @@ public class BossController : EnemyBase
             return;
         }
 
-        // 2. HỆ THỐNG QUÉT KHOẢNG CÁCH CHIẾN ĐẤU (AGGRO LOGIC)
         if (player != null) 
         {
             float distanceToPlayer = Vector2.Distance(transform.position, player.position);
@@ -85,9 +79,8 @@ public class BossController : EnemyBase
             else if (isAggroed && distanceToPlayer >= deaggroRange)
             {
                 isAggroed = false;
-                StopMovement(); // Ép Boss đứng yên tại chỗ
+                StopMovement(); 
 
-                // Ẩn thanh máu khẩn cấp trên màn hình Canvas
                 if (bossUI != null)
                 {
                     bossUI.gameObject.SetActive(false);
@@ -97,7 +90,6 @@ public class BossController : EnemyBase
         }
         else
         {
-            // Nếu không tìm thấy player (hoặc Player đang bật skill Tàng hình)
             if (isAggroed)
             {
                 isAggroed = false;
@@ -106,23 +98,18 @@ public class BossController : EnemyBase
             }
         }
 
-        // 3. CHẶN HÀNH VI: Nếu chưa vào trạng thái khiêu khích (isAggroed = false) thì ngắt không cho xả chiêu
         if (!isAggroed)
         {
             return;
         }
 
-        // =========================================================
-        // LOGIC CHIẾN ĐẤU (Chỉ thực thi khi isAggroed == true)
-        // =========================================================
+     
 
-        // ĐẾM NGƯỢC THỜI GIAN HỒI CHIÊU RIÊNG CỦA SKILL TRIỆU HỒI
         if (minionCooldownTimer > 0f)
         {
             minionCooldownTimer -= Time.deltaTime;
         }
 
-        // Đếm ngược giãn cách ra chiêu chung của Boss
         skillTimer += Time.deltaTime;
         if (skillTimer >= skillCooldown && !isBossDashing)
         {
@@ -253,7 +240,6 @@ public class BossController : EnemyBase
     {
         if (isDead) return;
 
-        // Cơ chế bổ trợ: Nếu quái chưa kích hoạt Aggro nhưng người chơi bắn trộm từ xa, ép Boss vào thế chiến đấu luôn
         if (!isAggroed)
         {
             isAggroed = true;
@@ -291,7 +277,7 @@ public class BossController : EnemyBase
         rb.isKinematic = true;
         GetComponent<Collider2D>().enabled = false;
 
-        if (bossUI != null) bossUI.gameObject.SetActive(false); // Xóa thanh máu khi thắng trận
+        if (bossUI != null) bossUI.gameObject.SetActive(false); 
 
         Debug.Log("Boss đã bị tiêu diệt!");
         
@@ -314,26 +300,21 @@ public class BossController : EnemyBase
 
     IEnumerator PlayEndGameVideoRoutine()
     {
-        // 1. Bật đối tượng Video Panel lên màn hình
         endGameVideoPanel.SetActive(true);
 
-        // 2. Lấy thành phần Video Player và ra lệnh phát video
         VideoPlayer vp = endGameVideoPanel.GetComponent<VideoPlayer>();
         if (vp != null)
         {
             vp.Play();
         }
 
-        // 3. ĐÓNG BĂNG HỆ THỐNG TRONG ĐÚNG 10 GIÂY
-        // Sử dụng WaitForSeconds để bộ đếm chạy song hành với tiến trình game
         yield return new WaitForSeconds(videoDuration);
 
-        // 4. Hết 10 giây, tiến hành tắt video và trả lại màn hình game
         if (vp != null)
         {
-            vp.Stop(); // Dừng phát video hoàn toàn
+            vp.Stop(); 
         }
-        endGameVideoPanel.SetActive(false); // Ẩn hoàn toàn đối tượng UI video
+        endGameVideoPanel.SetActive(false); 
 
         Destroy(gameObject);
 

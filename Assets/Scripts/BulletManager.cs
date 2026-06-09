@@ -14,7 +14,7 @@ public class BulletManager : MonoBehaviour
     public GameObject impactEffect;
 
     private Rigidbody2D rb;
-    private bool isLaunched = false; // Cờ kiểm tra đạn đã được bắn bằng vật lý chưa
+    private bool isLaunched = false; 
 
     void Awake()
     {
@@ -26,23 +26,19 @@ public class BulletManager : MonoBehaviour
         Destroy(gameObject, lifeTime);
     }
 
-    // Hàm dành riêng cho Enemy gọi để chốt hướng bay
     public void Launch(Vector2 direction)
     {
         if (rb == null) rb = GetComponent<Rigidbody2D>();
 
-        // Chốt vận tốc ngay lập tức, đạn sẽ bay thẳng tới điểm đó dù player né đi
         rb.velocity = direction * speed;
         isLaunched = true;
 
-        // Xoay đầu đạn về hướng bay
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
         transform.rotation = Quaternion.Euler(0, 0, angle);
     }
 
     void Update()
     {
-        // Nếu là đạn Player (không dùng Launch) thì bay thẳng theo hướng nòng súng
         if (!isLaunched)
         {
             transform.Translate(Vector2.right * speed * Time.deltaTime);
@@ -53,7 +49,7 @@ public class BulletManager : MonoBehaviour
     {
         if (collision.gameObject.name == "Traps")
         {
-            return; // Thoát hàm sớm, cho đạn bay tiếp
+            return; 
         }
 
         if (collision.CompareTag("Wall") || collision.GetComponent<UnityEngine.Tilemaps.TilemapCollider2D>() != null)

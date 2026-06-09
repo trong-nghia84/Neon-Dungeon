@@ -19,13 +19,13 @@ public abstract class PlayerBase : MonoBehaviour
 
     [Header("Skill 1: Sword Wave (Phím R)")]
     public string skill1Name ;
-    public float skill1Cooldown ; // Sóng kiếm hồi lâu (10s)
+    public float skill1Cooldown ; 
     public Sprite skill1Icon;
     protected float currentSkill1Timer = 0f;
 
     [Header("Skill 2: Block (Phím E)")]
     public string skill2Name ;
-    public float skill2Cooldown ;  // Chặn hồi nhanh (3s)
+    public float skill2Cooldown ;  
     public Sprite skill2Icon;
     protected float currentSkill2Timer = 0f;
 
@@ -33,13 +33,13 @@ public abstract class PlayerBase : MonoBehaviour
     public bool IsSkill2Ready => currentSkill2Timer <= 0f;
 
     [Header("Defense State")]
-    public bool isInvincible = false; // Trạng thái bất tử tạm thời
+    public bool isInvincible = false; 
 
     [Header("Shield Power-Up Settings")]
-    public GameObject shieldVisualEffect; // Kéo đối tượng vòng sáng Neon (con của Player) vào đây
+    public GameObject shieldVisualEffect; 
 
     [Header("Damage Buff Settings")]
-    protected float currentDamageMultiplier = 1f; // Hệ số nhân mặc định là 1 (không tăng)
+    protected float currentDamageMultiplier = 1f; 
     private Coroutine damageBuffCoroutine;
     protected virtual void Awake()
     {
@@ -48,7 +48,6 @@ public abstract class PlayerBase : MonoBehaviour
         anim = GetComponent<Animator>();
         switchManager = GameObject.FindObjectOfType<PlayerSwitchManager>();
 
-        // Tự động tìm đối tượng con tên là "Hitbox" và lấy Collider của nó
         Transform hitboxTransform = transform.Find("CollectDamageBox");
         if (hitboxTransform != null)
         {
@@ -61,10 +60,9 @@ public abstract class PlayerBase : MonoBehaviour
     {
         if (isDead) return;
 
-        // LƯU Ý: Nếu đang lướt, ta chặn hoàn toàn logic di chuyển ở đây
         if (dashScript != null && dashScript.IsDashing)
         {
-            anim.SetFloat("Speed", 0); // Đảm bảo không chạy anim chạy khi đang lướt
+            anim.SetFloat("Speed", 0); 
             return;
         }
 
@@ -81,7 +79,6 @@ public abstract class PlayerBase : MonoBehaviour
 
     public virtual void Move(Vector2 direction)
     {
-        // LƯU Ý: Chặn thêm điều kiện IsDashing ở đây để an toàn tuyệt đối
         if (isDead || (dashScript != null && dashScript.IsDashing)) return;
 
         rb.velocity = direction * moveSpeed;
@@ -107,11 +104,10 @@ public abstract class PlayerBase : MonoBehaviour
     {
         if (isDead) return;
 
-        // ĐOẠN SỬA CHÍNH: Quái vẫn tấn công trúng, nhưng nếu có Khiên (isInvincible) thì chặn damage tại đây
         if (isInvincible)
         {
             Debug.Log(gameObject.name + " đang bật Khiên! Đạn/Quái đánh trúng nhưng không mất máu.");
-            return; // Thoát hàm ngay lập tức, quái vẫn chơi anim đánh nhưng manager không bị trừ máu
+            return; 
         }
 
         if (switchManager != null)
@@ -137,7 +133,6 @@ public abstract class PlayerBase : MonoBehaviour
         Collider2D collider = GetComponent<Collider2D>();
         if (collider != null) collider.enabled = false;
 
-        // Tắt luôn Hitbox con nếu có để chắc chắn không bị trúng đạn khi đã chết
         Transform hitbox = transform.Find("Hitbox");
         if (hitbox != null) hitbox.gameObject.SetActive(false);
 
@@ -149,8 +144,8 @@ public abstract class PlayerBase : MonoBehaviour
     {
         if (IsSkill1Ready)
         {
-            ExecuteSkill1Logic(); // Chạy chiêu thức
-            currentSkill1Timer = skill1Cooldown; // Bắt đầu hồi chiêu
+            ExecuteSkill1Logic(); 
+            currentSkill1Timer = skill1Cooldown; 
         }
     }
 
@@ -158,8 +153,8 @@ public abstract class PlayerBase : MonoBehaviour
     {
         if (IsSkill2Ready)
         {
-            ExecuteSkill2Logic(); // Chạy chiêu thức
-            currentSkill2Timer = skill2Cooldown; // Bắt đầu hồi chiêu
+            ExecuteSkill2Logic(); 
+            currentSkill2Timer = skill2Cooldown; 
         }
     }
 
@@ -186,19 +181,15 @@ public abstract class PlayerBase : MonoBehaviour
 
     private System.Collections.IEnumerator ShieldPowerUpRoutine(float duration)
     {
-        // 1. Bật trạng thái bất tử (Hàm TakeDamage hiện tại của bạn đã tự động chặn trừ máu khi biến này = true)
         isInvincible = true;
 
-        // 2. Hiện hiệu ứng vòng neon bảo vệ
         if (shieldVisualEffect != null)
         {
             shieldVisualEffect.SetActive(true);
         }
 
-        // 3. Chờ hết thời gian bổ trợ của Item
         yield return new WaitForSeconds(duration);
 
-        // 4. Tắt trạng thái bất tử và ẩn hiệu ứng
         isInvincible = false;
 
         if (shieldVisualEffect != null)
@@ -211,7 +202,6 @@ public abstract class PlayerBase : MonoBehaviour
 
     public void ActivateDamageBuff(float multiplier, float duration)
     {
-        // Nếu đang có buff cũ, dừng nó lại để tính thời gian mới
         if (damageBuffCoroutine != null) StopCoroutine(damageBuffCoroutine);
 
         damageBuffCoroutine = StartCoroutine(DamageBuffRoutine(multiplier, duration));
@@ -221,15 +211,13 @@ public abstract class PlayerBase : MonoBehaviour
     {
         currentDamageMultiplier = multiplier;
 
-        // Phản hồi Game Feel: Đổi màu nhân vật sang màu cam/đỏ Neon để báo hiệu đang cuồng nộ
         SpriteRenderer sprite = GetComponent<SpriteRenderer>();
-        if (sprite != null) sprite.color = new Color(1f, 0.4f, 0f); // Màu cam rực
+        if (sprite != null) sprite.color = new Color(1f, 0.4f, 0f); 
 
         yield return new WaitForSeconds(duration);
 
-        // Hết thời gian buff, trả các chỉ số về mặc định
         currentDamageMultiplier = 1f;
-        if (sprite != null) sprite.color = Color.white; // Trở lại màu gốc
+        if (sprite != null) sprite.color = Color.white; 
 
         Debug.Log("Hết thời gian hiệu lực của Buff Tăng Sát Thương.");
     }

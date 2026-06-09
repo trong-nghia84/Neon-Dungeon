@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI; // CẦN THÊM DÒNG NÀY ĐỂ DÙNG SLIDER
+using UnityEngine.UI; 
 public class PlayerSwitchManager : MonoBehaviour
 {
     public PlayerBase[] characters;
@@ -40,7 +40,6 @@ public class PlayerSwitchManager : MonoBehaviour
     {
         if (isAllDead) return;
 
-        // 1. Xử lý di chuyển 8 hướng
         float moveX = Input.GetAxisRaw("Horizontal");
         float moveY = Input.GetAxisRaw("Vertical");
         Vector2 moveDir = new Vector2(moveX, moveY).normalized;
@@ -50,19 +49,16 @@ public class PlayerSwitchManager : MonoBehaviour
             currentActiveCharacter.Move(moveDir);
         }
 
-        // 2. Xử lý tấn công
         if (Input.GetMouseButtonDown(0))
         {
             currentActiveCharacter.Attack();
         }
 
-        // 3. Xử lý đổi nhân vật (Chỉ cho phép đổi khi còn sống)
         if (Input.GetKeyDown(KeyCode.Tab))
         {
             SwitchCharacter();
         }
 
-        //4. Xử lý dùng kỹ năng R đặc biệt (Chỉ cho phép dùng khi còn sống)
         if (Input.GetKeyDown(KeyCode.R))
         {
             if (currentActiveCharacter != null)
@@ -71,7 +67,6 @@ public class PlayerSwitchManager : MonoBehaviour
             }
         }
 
-        //5. Xử lý dùng kỹ năng T đặc biệt (Chỉ cho phép dùng khi còn sống)
         if (Input.GetKeyDown(KeyCode.T))
         {
             if (currentActiveCharacter != null)
@@ -81,7 +76,6 @@ public class PlayerSwitchManager : MonoBehaviour
         }
     }
 
-    // Hàm dùng chung để trừ máu từ bất kỳ nhân vật nào
     public void TakeSharedDamage(float damage)
     {
         if (isAllDead) return;
@@ -93,7 +87,6 @@ public class PlayerSwitchManager : MonoBehaviour
         {
             sharedHealth = 0;
             isAllDead = true;
-            // Ép nhân vật hiện tại thực hiện animation chết
             if (currentActiveCharacter != null) currentActiveCharacter.Die();
             GameManager.Instance.TriggerGameOver();
         }
@@ -107,7 +100,6 @@ public class PlayerSwitchManager : MonoBehaviour
 
     void ActivateCharacter(int index)
     {
-        // Lưu vị trí trước khi chuyển
         Vector3 lastPosition = currentActiveCharacter != null ? currentActiveCharacter.transform.position : transform.position;
 
         for (int i = 0; i < characters.Length; i++)
@@ -136,7 +128,6 @@ public class PlayerSwitchManager : MonoBehaviour
 
         sharedHealth += amount;
 
-        // Giả sử máu tối đa của bạn là 100 (hãy thay bằng biến maxHealth nếu có)
         if (sharedHealth > maxHealth)
         {
             sharedHealth = maxHealth;

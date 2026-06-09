@@ -3,7 +3,7 @@
 public class ShieldItem : MonoBehaviour
 {
     [Header("Cài đặt Item")]
-    public float shieldDuration = 5f; // Thời gian bất tử khi nhặt khiên (5 giây)
+    public float shieldDuration = 5f; 
 
     [Header("Hiệu ứng")]
     public GameObject pickupVFX; 

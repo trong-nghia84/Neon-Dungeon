@@ -19,7 +19,6 @@ public class DamageItem : MonoBehaviour
 
             if (player != null)
             {
-                // Kích hoạt trạng thái tăng damage trên Player
                 player.ActivateDamageBuff(damageMultiplier, buffDuration);
                 Debug.Log($"Player đã nhặt được Item Tăng Sát Thương x{damageMultiplier}!");
             }

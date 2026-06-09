@@ -41,7 +41,6 @@ public class SwordsmanPlayer : PlayerBase
         {
             GameObject wave = Instantiate(wavePrefab, firePoint.position, firePoint.rotation);
 
-            // Xử lý hướng quay
             if (!isFacingRight)
             {
                 wave.transform.rotation = Quaternion.Euler(0, 0, 180f);
@@ -60,13 +59,10 @@ public class SwordsmanPlayer : PlayerBase
 
         isInvincible = true;
 
-        // Kích hoạt hiệu ứng hình ảnh và Animation
         if (anim != null) anim.SetBool("IsSkill2", true);
         
-        // Chờ 5 giây
         yield return new WaitForSeconds(5f);
 
-        // Kết thúc trạng thái chặn
         isInvincible = false;
 
         if (anim != null) anim.SetBool("IsSkill2", false);

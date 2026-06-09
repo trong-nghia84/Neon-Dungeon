@@ -5,7 +5,7 @@ using UnityEngine;
 public class HealthItems : MonoBehaviour
 {
     [Header("Cấu hình hồi máu")]
-    public float healAmount = 25f; // Lượng máu sẽ cộng thêm
+    public float healAmount = 25f; 
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
