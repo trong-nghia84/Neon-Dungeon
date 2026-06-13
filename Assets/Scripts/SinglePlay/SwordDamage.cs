@@ -14,7 +14,7 @@ public class SwordDamage : MonoBehaviour
     {
         if (collision.CompareTag(targetTag))
         {
-            
+
             float finalDamage = damageValue;
 
             if (PlayerSwitchManager.CurrentPlayerTransform != null)
@@ -33,7 +33,7 @@ public class SwordDamage : MonoBehaviour
 
                 if (enemy != null)
                 {
-                    enemy.TakeDamage(finalDamage); 
+                    enemy.TakeDamage(finalDamage);
                     Debug.Log($"Kiếm chém trúng Enemy gây: {finalDamage} sát thương.");
                 }
             }
@@ -44,7 +44,7 @@ public class SwordDamage : MonoBehaviour
 
                 if (player != null)
                 {
-                    player.TakeDamage(damageValue); 
+                    player.TakeDamage(damageValue);
                 }
             }
         }

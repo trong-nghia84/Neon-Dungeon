@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 7115940998082770866}
   - component: {fileID: 3458455981745209619}
   - component: {fileID: 2499368738254637152}
+  - component: {fileID: -8200744971801495583}
   m_Layer: 0
   m_Name: SwordWave
   m_TagString: Untagged
@@ -174,3 +175,24 @@ MonoBehaviour:
   speed: 10
   damage: 25
   lifeTime: 2
+--- !u!114 &-8200744971801495583
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 202807006342104171}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GlobalObjectIdHash: 0
+  InScenePlacedSourceGlobalObjectIdHash: 0
+  AlwaysReplicateAsRoot: 0
+  SynchronizeTransform: 1
+  ActiveSceneSynchronization: 0
+  SceneMigrationSynchronization: 1
+  SpawnWithObservers: 1
+  DontDestroyWithOwner: 0
+  AutoObjectParentSync: 1

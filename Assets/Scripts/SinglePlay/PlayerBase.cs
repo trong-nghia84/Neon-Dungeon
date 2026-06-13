@@ -18,14 +18,14 @@ public abstract class PlayerBase : MonoBehaviour
     public Collider2D hitboxCollider;
 
     [Header("Skill 1: Sword Wave (Phím R)")]
-    public string skill1Name ;
-    public float skill1Cooldown ; 
+    public string skill1Name;
+    public float skill1Cooldown;
     public Sprite skill1Icon;
     protected float currentSkill1Timer = 0f;
 
     [Header("Skill 2: Block (Phím E)")]
-    public string skill2Name ;
-    public float skill2Cooldown ;  
+    public string skill2Name;
+    public float skill2Cooldown;
     public Sprite skill2Icon;
     protected float currentSkill2Timer = 0f;
 
@@ -33,13 +33,13 @@ public abstract class PlayerBase : MonoBehaviour
     public bool IsSkill2Ready => currentSkill2Timer <= 0f;
 
     [Header("Defense State")]
-    public bool isInvincible = false; 
+    public bool isInvincible = false;
 
     [Header("Shield Power-Up Settings")]
-    public GameObject shieldVisualEffect; 
+    public GameObject shieldVisualEffect;
 
     [Header("Damage Buff Settings")]
-    protected float currentDamageMultiplier = 1f; 
+    protected float currentDamageMultiplier = 1f;
     private Coroutine damageBuffCoroutine;
     protected virtual void Awake()
     {
@@ -53,7 +53,7 @@ public abstract class PlayerBase : MonoBehaviour
         {
             hitboxCollider = hitboxTransform.GetComponent<Collider2D>();
         }
-        
+
     }
 
     protected virtual void Update()
@@ -62,7 +62,7 @@ public abstract class PlayerBase : MonoBehaviour
 
         if (dashScript != null && dashScript.IsDashing)
         {
-            anim.SetFloat("Speed", 0); 
+            anim.SetFloat("Speed", 0);
             return;
         }
 
@@ -107,7 +107,7 @@ public abstract class PlayerBase : MonoBehaviour
         if (isInvincible)
         {
             Debug.Log(gameObject.name + " đang bật Khiên! Đạn/Quái đánh trúng nhưng không mất máu.");
-            return; 
+            return;
         }
 
         if (switchManager != null)
@@ -144,8 +144,8 @@ public abstract class PlayerBase : MonoBehaviour
     {
         if (IsSkill1Ready)
         {
-            ExecuteSkill1Logic(); 
-            currentSkill1Timer = skill1Cooldown; 
+            ExecuteSkill1Logic();
+            currentSkill1Timer = skill1Cooldown;
         }
     }
 
@@ -153,8 +153,8 @@ public abstract class PlayerBase : MonoBehaviour
     {
         if (IsSkill2Ready)
         {
-            ExecuteSkill2Logic(); 
-            currentSkill2Timer = skill2Cooldown; 
+            ExecuteSkill2Logic();
+            currentSkill2Timer = skill2Cooldown;
         }
     }
 
@@ -212,12 +212,12 @@ public abstract class PlayerBase : MonoBehaviour
         currentDamageMultiplier = multiplier;
 
         SpriteRenderer sprite = GetComponent<SpriteRenderer>();
-        if (sprite != null) sprite.color = new Color(1f, 0.4f, 0f); 
+        if (sprite != null) sprite.color = new Color(1f, 0.4f, 0f);
 
         yield return new WaitForSeconds(duration);
 
         currentDamageMultiplier = 1f;
-        if (sprite != null) sprite.color = Color.white; 
+        if (sprite != null) sprite.color = Color.white;
 
         Debug.Log("Hết thời gian hiệu lực của Buff Tăng Sát Thương.");
     }

@@ -31,17 +31,11 @@ public class MainMenuController : MonoBehaviour
         if (multiPlayPanel != null)
         {
             multiPlayPanel.SetActive(true);
-            Debug.Log("Đã mở Panel MultiPlay.");
+            Debug.Log("Đã mở Panel MultiPlay. Đã chặn tương tác các nút phía dưới.");
         }
     }
 
-    public void CloseMultiPlayPanel()
-    {
-        if (multiPlayPanel != null)
-        {
-            multiPlayPanel.SetActive(false);
-        }
-    }
+    
 
     public void OnSettingButtonClick()
     {

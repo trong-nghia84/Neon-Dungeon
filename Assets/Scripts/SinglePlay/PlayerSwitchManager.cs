@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI; 
+using UnityEngine.UI;
 public class PlayerSwitchManager : MonoBehaviour
 {
     public PlayerBase[] characters;
@@ -15,12 +15,12 @@ public class PlayerSwitchManager : MonoBehaviour
     public bool isAllDead = false;
 
     [Header("UI References")]
-    public Slider healthSlider; 
+    public Slider healthSlider;
 
     public CinemachineVirtualCamera vcam;
 
     public static Transform CurrentPlayerTransform;
-    public static PlayerSwitchManager Instance; 
+    public static PlayerSwitchManager Instance;
 
     private void Awake()
     {
@@ -152,4 +152,3 @@ public class PlayerSwitchManager : MonoBehaviour
     }
 
 }
-
