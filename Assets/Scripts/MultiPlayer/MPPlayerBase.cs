@@ -1,13 +1,14 @@
 ﻿using System.Collections;
 using Unity.Netcode;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public abstract class MPPlayerBase : NetworkBehaviour
 {
     [Header("Base Stats")]
     public float moveSpeed = 5f;
 
-    protected Rigidbody2D rb;
+    public Rigidbody2D rb;
     protected Animator anim;
     protected MPPlayerSwitchManager switchManager;
     protected bool isFacingRight = true;
@@ -30,6 +31,7 @@ public abstract class MPPlayerBase : NetworkBehaviour
     public Sprite skill2Icon;
 
     protected float currentSkill2Timer = 0f;
+    private float targetScaleX = 1f;
 
     public bool IsSkill1Ready => currentSkill1Timer <= 0f;
     public bool IsSkill2Ready => currentSkill2Timer <= 0f;
@@ -48,7 +50,7 @@ public abstract class MPPlayerBase : NetworkBehaviour
     protected virtual void Awake()
     {
         dashScript = GetComponent<PlayerDash>();
-        rb = GetComponentInParent<Rigidbody2D>();
+        //rb = GetComponentInParent<Rigidbody2D>();
         anim = GetComponent<Animator>();
 
         switchManager =
@@ -66,6 +68,14 @@ public abstract class MPPlayerBase : NetworkBehaviour
 
     protected virtual void Update()
     {
+        if(!IsOwner)
+        {
+            // Đồng bộ flip từ chủ sở hữu
+            Vector3 scale = transform.localScale;
+            scale.x = targetScaleX;
+            transform.localScale = scale;
+        }
+
         if (isDead)
             return;
 
@@ -125,6 +135,7 @@ public abstract class MPPlayerBase : NetworkBehaviour
         scale.x *= -1;
 
         transform.localScale = scale;
+        SendScaleServerRpc(scale.x);
     }
 
     public abstract void Attack();
@@ -312,5 +323,19 @@ public abstract class MPPlayerBase : NetworkBehaviour
     {
         return switchManager != null &&
                switchManager.IsOwner;
+    }
+
+    [ServerRpc]
+    public void SendScaleServerRpc(float scaleX)
+    {
+        UpdateScaleClientRpc(scaleX);
+    }
+
+    [ClientRpc]
+    private void UpdateScaleClientRpc(float scaleX)
+    {
+        if (IsOwner) return;
+
+        targetScaleX = scaleX;
     }
 }

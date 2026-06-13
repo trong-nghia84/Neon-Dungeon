@@ -35,6 +35,8 @@ public class MPPlayerSwitchManager : NetworkBehaviour
 
     public static MPPlayerSwitchManager LocalPlayer;
 
+    public Vector3 targetPos;
+
     public override void OnNetworkSpawn()
     {
         activeCharacterIndex.OnValueChanged += OnCharacterChanged;
@@ -102,6 +104,10 @@ public class MPPlayerSwitchManager : NetworkBehaviour
     private void FixedUpdate()
     {
         // Bảo hiểm tối cao: Chỉ có máy ĐANG SỞ HỮU nhân vật này mới được phép điều khiển di chuyển
+        if(!IsOwner)
+        {
+            transform.position = Vector3.Lerp(transform.position, targetPos, Time.fixedDeltaTime * 10);
+        }
         if (!IsOwner || currentActiveCharacter == null || currentHealth.Value <= 0)
         {
             return;
@@ -115,6 +121,7 @@ public class MPPlayerSwitchManager : NetworkBehaviour
 
         // Gọi hàm di chuyển vật lý của nhân vật hiện tại
         currentActiveCharacter.Move(moveDir);
+        SendPositionServerRpc(transform.position);
     }
 
     [ServerRpc]
@@ -243,5 +250,19 @@ public class MPPlayerSwitchManager : NetworkBehaviour
     public MPPlayerBase GetCurrentCharacter()
     {
         return currentActiveCharacter;
+    }
+
+    //Server
+    [ServerRpc]
+    void SendPositionServerRpc(Vector3 pos)
+    {
+        UpdatePositionClientRpc(pos);
+    }
+
+    [ClientRpc]
+    void UpdatePositionClientRpc(Vector3 pos)
+    {
+        if (IsOwner) return;
+        targetPos = pos;
     }
 }

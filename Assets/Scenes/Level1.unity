@@ -21250,6 +21250,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayerManager
       objectReference: {fileID: 0}
+    - target: {fileID: 205068353678171473, guid: 7e3d1aea4fed5f04e9687d5d295839b8, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1186943495099716274, guid: 7e3d1aea4fed5f04e9687d5d295839b8, type: 3}
       propertyPath: GlobalObjectIdHash
       value: 3259736049

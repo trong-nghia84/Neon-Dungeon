@@ -315,7 +315,7 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2154286163808208416}
-  m_BodyType: 0
+  m_BodyType: 1
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
@@ -383,6 +383,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 5
+  rb: {fileID: 1693645354228631912}
   hitboxCollider: {fileID: 5149688330323864731}
   skill1Name: 
   skill1Cooldown: 10
@@ -439,8 +440,6 @@ GameObject:
   - component: {fileID: 7596834431311072695}
   - component: {fileID: 1693645354228631912}
   - component: {fileID: 1350975459492064144}
-  - component: {fileID: 8552736763307123648}
-  - component: {fileID: 4085751290806315447}
   m_Layer: 0
   m_Name: MPPlayerManager
   m_TagString: Untagged
@@ -531,49 +530,7 @@ MonoBehaviour:
   maxHealth: 100
   healthSlider: {fileID: 0}
   vcam: {fileID: 0}
---- !u!114 &8552736763307123648
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4511249630608188171}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c6793de1fddf0f24f926c19cb113346f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  UseUnreliableDeltas: 0
-  SyncPositionX: 1
-  SyncPositionY: 1
-  SyncPositionZ: 0
-  SyncRotAngleX: 0
-  SyncRotAngleY: 0
-  SyncRotAngleZ: 0
-  SyncScaleX: 0
-  SyncScaleY: 0
-  SyncScaleZ: 0
-  PositionThreshold: 0.001
-  RotAngleThreshold: 0.01
-  ScaleThreshold: 0.01
-  UseQuaternionSynchronization: 0
-  UseQuaternionCompression: 0
-  UseHalfFloatPrecision: 0
-  InLocalSpace: 0
-  Interpolate: 1
-  SlerpPosition: 0
---- !u!114 &4085751290806315447
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4511249630608188171}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 80d7c879794dfda4687da0e400131852, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  targetPos: {x: 0, y: 0, z: 0}
 --- !u!1 &5077370533500440236
 GameObject:
   m_ObjectHideFlags: 0
@@ -787,6 +744,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 5
+  rb: {fileID: 0}
   hitboxCollider: {fileID: 0}
   skill1Name: 
   skill1Cooldown: 10
