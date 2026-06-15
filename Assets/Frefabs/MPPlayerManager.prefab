@@ -954,7 +954,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5417089638411789495}
   - component: {fileID: 979482257812177863}
-  - component: {fileID: 3012709434585762966}
+  - component: {fileID: 8467041921858886540}
   m_Layer: 0
   m_Name: DamageBox
   m_TagString: Untagged
@@ -1022,7 +1022,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 4.3307157, y: 3.9763808}
   m_EdgeRadius: 0
---- !u!114 &3012709434585762966
+--- !u!114 &8467041921858886540
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1031,11 +1031,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 6137489342733641785}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 61dce479884021b47a2a6f18bfc13658, type: 3}
+  m_Script: {fileID: 11500000, guid: 4ae7c56b42f1ec24db24e7c05285594a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damageValue: 20
-  targetTag: Enemy
+  damageAmount: 5
 --- !u!1 &8707847000553797394
 GameObject:
   m_ObjectHideFlags: 0

@@ -12452,6 +12452,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayerManager (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 1186943495099716274, guid: 7e3d1aea4fed5f04e9687d5d295839b8, type: 3}
+      propertyPath: GlobalObjectIdHash
+      value: 131362894
+      objectReference: {fileID: 0}
     - target: {fileID: 2077885718167858573, guid: 7e3d1aea4fed5f04e9687d5d295839b8, type: 3}
       propertyPath: m_LocalPosition.x
       value: -10.52
@@ -12492,6 +12496,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8447129323734086526, guid: 7e3d1aea4fed5f04e9687d5d295839b8, type: 3}
+      propertyPath: vcam
+      value: 
+      objectReference: {fileID: 1523870263}
+    - target: {fileID: 8447129323734086526, guid: 7e3d1aea4fed5f04e9687d5d295839b8, type: 3}
+      propertyPath: healthSlider
+      value: 
+      objectReference: {fileID: 1616076835}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

@@ -11,8 +11,9 @@ GameObject:
   - component: {fileID: 4619592874289671514}
   - component: {fileID: 5370464345758900350}
   - component: {fileID: 8636048505084974848}
-  - component: {fileID: 7463621830654107614}
   - component: {fileID: 7879634918907577993}
+  - component: {fileID: -391258135057105065}
+  - component: {fileID: 9049426954093078634}
   m_Layer: 0
   m_Name: Bullet
   m_TagString: Untagged
@@ -132,23 +133,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.18607974, y: 0.16102168}
   m_EdgeRadius: 0
---- !u!114 &7463621830654107614
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6483128102019919655}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c53a46e4066856e488c5ebbd28736a7d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 10
-  damage: 15
-  lifeTime: 2
-  owner: 0
-  impactEffect: {fileID: 0}
 --- !u!50 &7879634918907577993
 Rigidbody2D:
   serializedVersion: 4
@@ -176,3 +160,41 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &-391258135057105065
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6483128102019919655}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5a57f767e5e46a458fc5d3c628d0cbb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GlobalObjectIdHash: 280288203
+  InScenePlacedSourceGlobalObjectIdHash: 0
+  AlwaysReplicateAsRoot: 0
+  SynchronizeTransform: 1
+  ActiveSceneSynchronization: 0
+  SceneMigrationSynchronization: 1
+  SpawnWithObservers: 1
+  DontDestroyWithOwner: 0
+  AutoObjectParentSync: 1
+--- !u!114 &9049426954093078634
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6483128102019919655}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d64e0ac2743eea546bf4ed8567709017, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 10
+  damage: 15
+  lifeTime: 2
+  OwnerClientId: 0
+  impactEffect: {fileID: 0}
