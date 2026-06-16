@@ -35,8 +35,6 @@ public class MainMenuController : MonoBehaviour
         }
     }
 
-    
-
     public void OnSettingButtonClick()
     {
         if (settingPanel != null)
@@ -57,9 +55,6 @@ public class MainMenuController : MonoBehaviour
     public void OnQuitButtonClick()
     {
         Debug.Log("Người chơi đã bấm thoát game!");
-
-
         Application.Quit();
-
     }
 }

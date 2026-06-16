@@ -5,7 +5,7 @@ using UnityEngine;
 public abstract class EnemyBase : MonoBehaviour
 {
     [Header("Enemy Stats")]
-    public float maxHealth = 50f; // Đổi thành maxHealth để quản lý Slider dễ hơn
+    public float maxHealth = 50f;
     protected float currentHealth;
     public float damageToPlayer = 10f;
     public float moveSpeed = 3f;
@@ -56,7 +56,7 @@ public abstract class EnemyBase : MonoBehaviour
 
             if (playerScript != null && playerScript.isInvincible)
             {
-                player = null;
+                playerScript.TakeDamage(0);
             }
         }
 
