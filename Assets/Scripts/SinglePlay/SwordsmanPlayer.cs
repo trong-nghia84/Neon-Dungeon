@@ -58,12 +58,13 @@ public class SwordsmanPlayer : PlayerBase
     {
 
         isInvincible = true;
-
+        moveSpeed = 3f;
         if (anim != null) anim.SetBool("IsSkill2", true);
         
         yield return new WaitForSeconds(5f);
 
         isInvincible = false;
+        moveSpeed = 5f;
 
         if (anim != null) anim.SetBool("IsSkill2", false);
         

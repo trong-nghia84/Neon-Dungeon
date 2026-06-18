@@ -142,16 +142,18 @@ public abstract class MPPlayerBase : NetworkBehaviour
 
     public virtual void TakeDamage(float damage)
     {
-        if (isDead)
-            return;
-
-        if (isInvincible)
+        if (isDead || isInvincible)
             return;
 
         if (switchManager != null)
         {
-            switchManager.TakeDamage(damage);
+            // CHỈ SERVER MỚI ĐƯỢC PHÉP TRỪ MÁU THỰC TẾ
+            if (NetworkManager.Singleton.IsServer)
+            {
+                switchManager.TakeDamage(damage);
+            }
 
+            // Hiệu ứng giật mình (Hurt) thì máy nào cũng tự chạy để mượt hình ảnh
             if (anim != null)
             {
                 anim.SetTrigger("IsHurt");

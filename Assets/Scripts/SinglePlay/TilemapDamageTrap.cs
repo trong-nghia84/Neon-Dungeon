@@ -14,17 +14,13 @@ public class TilemapDamageTrap : MonoBehaviour
         
         if (collision.CompareTag("FootPlayer"))
         {
-            
             if (Time.time >= nextDamageTime)
             {
                 ExecuteTrapDamage();
-
-              
                 nextDamageTime = Time.time + burnInterval;
             }
         }
     }
-
    
     private void ExecuteTrapDamage()
     {
