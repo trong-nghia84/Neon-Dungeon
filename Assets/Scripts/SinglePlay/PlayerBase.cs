@@ -82,12 +82,12 @@ public abstract class PlayerBase : MonoBehaviour
         if (isDead || (dashScript != null && dashScript.IsDashing)) return;
 
         rb.velocity = direction * moveSpeed;
-
         if (anim != null)
             anim.SetFloat("Speed", direction.sqrMagnitude);
 
         if (direction.x > 0 && !isFacingRight) Flip();
         else if (direction.x < 0 && isFacingRight) Flip();
+        //AudioManager.instance.PlaySFX("Run");
     }
 
     protected void Flip()
@@ -138,6 +138,7 @@ public abstract class PlayerBase : MonoBehaviour
 
         rb.isKinematic = true;
         gameObject.tag = "Untagged";
+        AudioManager.instance.PlaySFX("Death");
     }
 
     public virtual void UseSkill1()

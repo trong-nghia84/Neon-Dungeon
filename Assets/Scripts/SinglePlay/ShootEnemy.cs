@@ -68,7 +68,7 @@ public class ShootEnemy : EnemyBase
             {
                 bManager.Launch(direction);
             }
-
+            AudioManager.instance.PlaySFX("Gun");
         }
     }
 }

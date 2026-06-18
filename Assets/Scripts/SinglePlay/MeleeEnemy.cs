@@ -52,7 +52,7 @@ public class MeleeEnemy : EnemyBase
         anim.SetFloat("Speed", 0f);
 
         anim.SetTrigger("IsAttack");
-
+        AudioManager.instance.PlaySFX("Sword");
         nextAttackTime = Time.time + attackCooldown;
     }
 

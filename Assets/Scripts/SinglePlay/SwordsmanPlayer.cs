@@ -16,6 +16,7 @@ public class SwordsmanPlayer : PlayerBase
     {
         if (isDead) return;
         anim.SetTrigger("IsAttack");
+        AudioManager.instance.PlaySFX("Sword");
     }
 
     public void EnableHitbox()
@@ -33,6 +34,7 @@ public class SwordsmanPlayer : PlayerBase
     protected override void ExecuteSkill1Logic()
     {
         anim.SetTrigger("IsSkill1");
+        AudioManager.instance.PlaySFX("SwordSkill");
     }
 
     public void CreateSwordWave()

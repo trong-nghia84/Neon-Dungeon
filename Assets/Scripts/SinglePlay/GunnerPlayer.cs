@@ -26,7 +26,8 @@ public class GunnerPlayer : PlayerBase
     {
         if (isDead) return;
 
-        anim.SetTrigger("IsAttack"); 
+        anim.SetTrigger("IsAttack");
+        AudioManager.instance.PlaySFX("Gun");
         //Shoot();
     }
 
@@ -44,6 +45,7 @@ public class GunnerPlayer : PlayerBase
     {
 
         if (anim != null) anim.SetTrigger("IsSkill1");
+        AudioManager.instance.PlaySFX("GunSkill");
 
         if (bombPrefab != null && firePoint != null)
         {
